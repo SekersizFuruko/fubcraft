@@ -6,6 +6,38 @@
 </head>
 <body>
 <h1>FubCraft VIP Satış Sitesi</h1>
-<p>VIP rütbeler: Acemi, Usta, ...</p>
+<p>VIP Rütbelerimiz:</p>
+<ul>
+  <li>Acemi</li>
+  <li>Orta</li>
+  <li>Usta</li>
+  <li>Profesyonel</li>
+  <li>Elit</li>
+</ul>
+
+<h2>VIP Satın Al</h2>
+<form id="vipForm">
+  <label for="username">Minecraft Kullanıcı Adınız:</label><br>
+  <input type="text" id="username" name="username" required><br><br>
+
+  <label for="rank">Almak istediğiniz VIP rütbesi:</label><br>
+  <select id="rank" name="rank" required>
+    <option value="">Seçiniz</option>
+    <option value="Acemi">Acemi</option>
+    <option value="Orta">Orta</option>
+    <option value="Usta">Usta</option>
+    <option value="Profesyonel">Profesyonel</option>
+    <option value="Elit">Elit</option>
+  </select><br><br>
+
+  <button type="submit">Gönder</button>
+</form>
+
+<script>
+  document.getElementById('vipForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Form gönderildi! (Henüz backend yok, ileride ekleyeceğiz.)');
+  });
+</script>
 </body>
 </html>
