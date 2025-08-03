@@ -1,35 +1,27 @@
-const express = require("express");
-const fetch = require("node-fetch");
+const express = require('express');
+const path = require('path');
 const app = express();
+const PORT = process.env.PORT || 3000;
 
-const webhookURL = process.env.WEBHOOK_URL;
-
-app.use(express.urlencoded({ extended: true }));
+// JSON verisi almak için
 app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("FubCraft VIP başvuru sayfası aktif.");
+// index.html dosyasını sun
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.post("/vip", async (req, res) => {
-  const { username, vip } = req.body;
+// VIP başvurusunu alacak POST endpoint
+app.post('/', (req, res) => {
+  const { username, papara } = req.body;
+  console.log(`VIP Başvurusu: Kullanıcı=${username}, Papara=${papara}`);
 
-  if (!username || !vip) {
-    return res.status(400).send("Eksik bilgi!");
-  }
+  // Burada Discord webhook'a istek atılacak (şimdilik console log)
 
-  await fetch(webhookURL, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: `🛒 **Yeni VIP başvurusu geldi!**\nOyuncu: **${username}**\nVIP Paketi: **${vip}**`
-    })
-  });
-
-  res.send("Başvuru alındı!");
+  res.status(200).json({ message: 'Başvuru alındı' });
 });
 
-const port = process.env.PORT || 3000;
-app.listen(port, () => {
-  console.log("Sunucu çalışıyor:", port);
+// Sunucuyu başlat
+app.listen(PORT, () => {
+  console.log(`Sunucu ${PORT} portunda çalışıyor`);
 });
