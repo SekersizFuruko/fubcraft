@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8" />
-<title>FubCraft VIP Satış</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FubCraft VIP Başvuru</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      text-align: center;
+      padding: 40px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      width: 80%;
+      max-width: 400px;
+      font-size: 16px;
+    }
+    form {
+      background: #222;
+      padding: 20px;
+      border-radius: 10px;
+      display: inline-block;
+    }
+  </style>
 </head>
 <body>
-<h1>FubCraft VIP Satış Sitesi</h1>
-<p>VIP Rütbelerimiz:</p>
-<ul>
-  <li>Acemi</li>
-  <li>Orta</li>
-  <li>Usta</li>
-  <li>Profesyonel</li>
-  <li>Elit</li>
-</ul>
+  <h1>FubCraft VIP Başvuru</h1>
+  <form id="vipForm">
+    <input type="text" id="mcName" placeholder="Minecraft kullanıcı adın" required /><br />
+    <input type="text" id="papara" placeholder="Papara işlem numarası" required /><br />
+    <button type="submit">Başvuruyu Gönder</button>
+  </form>
 
-<h2>VIP Satın Al</h2>
-<form id="vipForm">
-  <label for="username">Minecraft Kullanıcı Adınız:</label><br>
-  <input type="text" id="username" name="username" required><br><br>
+  <script>
+    const form = document.getElementById("vipForm");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const mcName = document.getElementById("mcName").value;
+      const papara = document.getElementById("papara").value;
 
-  <label for="rank">Almak istediğiniz VIP rütbesi:</label><br>
-  <select id="rank" name="rank" required>
-    <option value="">Seçiniz</option>
-    <option value="Acemi">Acemi</option>
-    <option value="Orta">Orta</option>
-    <option value="Usta">Usta</option>
-    <option value="Profesyonel">Profesyonel</option>
-    <option value="Elit">Elit</option>
-  </select><br><br>
+      const res = await fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username: mcName, papara: papara })
+      });
 
-  <button type="submit">Gönder</button>
-</form>
-
-<script>
-  document.getElementById('vipForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    alert('Form gönderildi! (Henüz backend yok, ileride ekleyeceğiz.)');
-  });
-</script>
+      if (res.ok) {
+        alert("Başvuru gönderildi! Onay bekleniyor.");
+        form.reset();
+      } else {
+        alert("Bir hata oluştu.");
+      }
+    });
+  </script>
 </body>
 </html>
