@@ -6,57 +6,77 @@
   <title>FubCraft VIP Başvuru</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #111;
-      color: #fff;
+      background-color: #111;
+      color: white;
+      font-family: sans-serif;
       text-align: center;
-      padding: 40px;
+      padding: 20px;
     }
-    input, button {
-      padding: 10px;
-      margin: 10px;
-      width: 80%;
-      max-width: 400px;
-      font-size: 16px;
+
+    img.logo {
+      max-width: 300px;
+      margin-bottom: 20px;
     }
+
     form {
-      background: #222;
+      background-color: #222;
       padding: 20px;
       border-radius: 10px;
-      display: inline-block;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+      border: none;
+      background-color: #333;
+      color: white;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
     }
   </style>
 </head>
 <body>
+
+  <!-- Logo görseli (örnek: fubcraft.png) -->
+  <img src="fubcraft.png" alt="FubCraft Logo" class="logo" />
+
   <h1>FubCraft VIP Başvuru</h1>
-  <form id="vipForm">
-    <input type="text" id="mcName" placeholder="Minecraft kullanıcı adın" required /><br />
-    <input type="text" id="papara" placeholder="Papara işlem numarası" required /><br />
+  <p>Lütfen ödeme yaptıktan sonra aşağıdaki formu doldur.</p>
+  <p><strong>PAPARA NO:</strong> <code>1591182787</code></p>
+
+  <form action="https://discord.com/api/webhooks/.../... (webhook buraya)" method="POST">
+    <input type="text" name="username" placeholder="Minecraft Oyuncu Adı" required />
+    
+    <select name="vip_paketi" required>
+      <option value="">VIP Paketi Seç</option>
+      <option value="Savaşçı">Savaşçı</option>
+      <option value="Kahraman">Kahraman</option>
+      <option value="Efsane">Efsane</option>
+      <option value="Kutsal">Kutsal</option>
+    </select>
+    
+    <input type="text" name="islem_no" placeholder="Papara İşlem Numarası" required />
+
+    <textarea name="not" rows="4" placeholder="Eklemek istediğin bir not (isteğe bağlı)"></textarea>
+
     <button type="submit">Başvuruyu Gönder</button>
   </form>
 
-  <script>
-    const form = document.getElementById("vipForm");
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const mcName = document.getElementById("mcName").value;
-      const papara = document.getElementById("papara").value;
-
-      const res = await fetch("/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ username: mcName, papara: papara })
-      });
-
-      if (res.ok) {
-        alert("Başvuru gönderildi! Onay bekleniyor.");
-        form.reset();
-      } else {
-        alert("Bir hata oluştu.");
-      }
-    });
-  </script>
 </body>
-</html>
+      </html>
